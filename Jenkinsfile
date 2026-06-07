@@ -9,7 +9,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'javac Hello.java'
+                sh 'javac Hello.java HelloTest.java'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'java HelloTest'
             }
         }
         stage('Run') {
@@ -21,10 +26,10 @@ pipeline {
 
     post {
         success {
-            echo 'Pipeline finished successfully!'
+            echo 'All stages passed!'
         }
         failure {
-            echo 'Something went wrong.'
+            echo 'Pipeline failed — check the stage that went red.'
         }
     }
 }
